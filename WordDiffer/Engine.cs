@@ -24,18 +24,18 @@ namespace WordDiffer
 
             for (int i = 0; i < max; i++)
             {
-                aCurr = (i > A.Count() - 1) ? null : A[i];
-                bCurr = (i > B.Count() - 1) ? null : B[i];
-                aNext = (i > A.Count() - 2) ? null : A[i + 1];
-                bNext = (i > B.Count() - 2) ? null : B[i + 1];
+                aCurr = (i > A.Count() - 1) ? string.Empty : A[i];
+                bCurr = (i > B.Count() - 1) ? string.Empty : B[i];
+                aNext = (i > A.Count() - 2) ? string.Empty : A[i + 1];
+                bNext = (i > B.Count() - 2) ? string.Empty : B[i + 1];
 
-                if (aCurr == bCurr)
+                if (aCurr.TrimEnd(' ') == bCurr.TrimEnd(' '))
                 {
                     sbOutput.Append(aCurr);
                 }
                 else
                 {
-                    if (aNext != bNext)
+                    if (aNext.TrimEnd(' ') != bNext.TrimEnd(' '))
                     {
                         sbDel.Append(aCurr);
                         sbIns.Append(bCurr);
