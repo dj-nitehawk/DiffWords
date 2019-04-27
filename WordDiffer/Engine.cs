@@ -8,14 +8,19 @@ namespace WordDiffer
     public static class DiffEngine
     {
         private static Regex r = new Regex(@"(?<=[\s])", RegexOptions.Compiled);
+        private static string delOpen = "<del style=\"background-color:rgb(255,224,224);text-decoration:line-through;\">";
+        private static string insOpen = "<ins style=\"text-decoration:none;background-color:rgb(224,255,224);\">";
+        private static string delClose = "</del>";
+        private static string insClose = "</ins>";
+
 
         public static string Process(ref string TextA, ref string TextB)
         {
             var A = r.Split(TextA);
             var B = r.Split(TextB);
             var max = Math.Max(A.Count(), B.Count());
-            var sbDel = new StringBuilder("<del>");
-            var sbIns = new StringBuilder("<ins>");
+            var sbDel = new StringBuilder(delOpen);
+            var sbIns = new StringBuilder(insOpen);
             var sbOutput = new StringBuilder();
             var aCurr = string.Empty;
             var bCurr = string.Empty;
@@ -46,11 +51,11 @@ namespace WordDiffer
                         sbIns.Append(bCurr);
                         sbOutput
                             .Append(sbDel.ToString())
-                            .Append("</del>")
+                            .Append(delClose)
                             .Append(sbIns.ToString())
-                            .Append("</ins>");
-                        sbDel.Clear().Append("<del>");
-                        sbIns.Clear().Append("<ins>");
+                            .Append(insClose);
+                        sbDel.Clear().Append(delOpen);
+                        sbIns.Clear().Append(insOpen);
                     }
                 }
             }
